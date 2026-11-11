@@ -1,24 +1,27 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Locale Switch Route
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::get('/', function() {
-    return redirect()->route('dashbard');
+    return redirect()->route('dashboard');
 });
 
-Route::get('/login', AuthController::class, 'auth_login_form')->name('login');
-Route::post('/login', AuthController::class, 'auth_login')->name('login.post');
+Route::get('/login', [AuthController::class, 'auth_login_form'])->name('login');
+Route::post('/login', [AuthController::class, 'auth_login'])->name('login.post');
 
-Route::get('/logout', AuthController::class, 'auth_logout')->name('logout')->middleware('auth');
+Route::get('/logout', [AuthController::class, 'auth_logout'])->name('logout')->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard_index'])->name('dashboard');
 
+    Route::prefix('/categories');
+});
 
 
 Route::prefix('tailadmin')->group(function () {
@@ -103,12 +106,6 @@ Route::prefix('tailadmin')->group(function () {
         return view('pages.ui-elements.videos', ['title' => 'Videos']);
     })->name('videos');
 });
-
-
-
-
-
-
 
 
 
