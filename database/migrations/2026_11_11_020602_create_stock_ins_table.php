@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stock_ins', function (Blueprint $table) {
             $table->id();
-            $table->string('references');
+            $table->string('reference');
             $table->foreignId('item_id')->constrained()->restrictOnDelete();
             $table->unsignedInteger('quantity');
             $table->date('date');

@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use app\Models\Concerns\HasSlug;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Condition extends Model
+{
+    use HasSlug;
+
+    protected $fillable = [
+        'slug',
+        'name',
+        'description'
+    ];
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
+}

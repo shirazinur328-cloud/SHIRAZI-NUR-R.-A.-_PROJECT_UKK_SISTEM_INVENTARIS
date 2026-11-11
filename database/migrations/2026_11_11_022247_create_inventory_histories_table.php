@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity');
             $table->unsignedInteger('stock_before');
             $table->unsignedInteger('stock_after');
-            $table->string('references')->nullable();
+            $table->string('reference')->nullable();
             $table->text('note')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
