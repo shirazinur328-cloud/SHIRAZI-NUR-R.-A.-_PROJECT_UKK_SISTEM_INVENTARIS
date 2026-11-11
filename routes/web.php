@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,13 @@ Route::get('/logout', [AuthController::class, 'auth_logout'])->name('logout')->m
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard_index'])->name('dashboard');
 
-    Route::prefix('/categories');
+    Route::prefix('categories')->name('categories.')->group(function () {  
+        Route::get('/', [CategoryController::class, 'category_data'])->name('index');  
+        Route::match(['get', 'post'], '/add', [CategoryController::class, 'category_add'])->name('add');  
+        Route::match(['get', 'post'], '{category:slug}/edit', [CategoryController::class, 'category_edit'])->name('edit');  
+        Route::post('{category:slug}/delete', [CategoryController::class, 'category_delete'])->name('delete');  
+        Route::get('{category:slug}', [CategoryController::class, 'category_detail'])->name('detail');  
+    });  
 });
 
 
