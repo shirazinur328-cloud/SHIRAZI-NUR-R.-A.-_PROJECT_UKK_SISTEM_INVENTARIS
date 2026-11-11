@@ -13,6 +13,27 @@ class InventoryHistory extends Model
     protected $fillable = [
         'item_id',
         'type',
-        'quantity'
+        'quantity',
+        'stock_before',
+        'stock_after',
+        'reference',
+        'note',
+        'user_id',
     ];
+
+    protected $casts = [
+        'quantity' => 'integer',
+        'stock_before' => 'integer',
+        'stock_after' => 'integer',
+    ];
+
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
