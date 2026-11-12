@@ -14,7 +14,7 @@ class Location extends Model
         'code',
         'slug',
         'name',
-        'description',
+        'descriptions',
     ];
 
     public function itmes():HasMany

@@ -13,7 +13,7 @@ class Condition extends Model
     protected $fillable = [
         'slug',
         'name',
-        'description'
+        'descriptions'
     ];
 
     public function items(): HasMany
