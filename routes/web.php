@@ -22,13 +22,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard_index'])->name('dashboard');
 
     Route::prefix('categories')->name('categories.')->group(function () {  
-        Route::get('/', [CategoryController::class, 'category_data'])->name('index');  
+        Route::get('/', [CategoryController::class, 'category_index'])->name('index');  
         Route::match(['get', 'post'], '/add', [CategoryController::class, 'category_add'])->name('add');  
         Route::match(['get', 'post'], '{category:slug}/edit', [CategoryController::class, 'category_edit'])->name('edit');  
         Route::post('{category:slug}/delete', [CategoryController::class, 'category_delete'])->name('delete');  
         Route::get('{category:slug}', [CategoryController::class, 'category_detail'])->name('detail');  
     });  
+
+    Route::prefix('conditions')->name('conditions.')->group(function () {
+
+    });
 });
+
+Route::get('/blank', function () {
+    return view('pages.blank', ['title' => 'Blank']);
+})->name('blank');
+    
+// error pages
+Route::get('/error-404', function () {
+    return view('pages.errors.error-404', ['title' => 'Error 404']);
+})->name('error-404');
 
 
 Route::prefix('tailadmin')->group(function () {

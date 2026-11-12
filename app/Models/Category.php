@@ -14,7 +14,7 @@ class Category extends Model
         'code',
         'slug',
         'name',
-        'descrription',
+        'descriptions',
     ];
 
     public function items(): HasMany

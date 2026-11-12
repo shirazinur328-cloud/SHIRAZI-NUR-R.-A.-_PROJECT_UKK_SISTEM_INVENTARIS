@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function category_data(Request $request)
+    public function category_index(Request $request)
     {
         $search = $request->query('search');
         $filter = $request->query('filter');

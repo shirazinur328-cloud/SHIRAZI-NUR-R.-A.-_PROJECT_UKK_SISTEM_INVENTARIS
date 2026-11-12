@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('stock')->default(0);
             $table->string('unit')->nullable();
             $table->unsignedInteger('min_stock')->default(0);
-            $table->string('descriptions')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
