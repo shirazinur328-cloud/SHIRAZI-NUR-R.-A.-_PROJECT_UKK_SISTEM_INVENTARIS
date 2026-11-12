@@ -32,6 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::prefix('conditions')->name('conditions.')->group(function () {
 
     });
+
+
+
+    Route::get('histories/', [HistoryController::class, 'history_index'])->name('histories.index');
+
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [ReportController::class, 'report_index'])->name('index');
+
+    });
 });
 
 Route::get('/blank', function () {
