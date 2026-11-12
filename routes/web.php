@@ -4,6 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ConditionController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Locale Switch Route
@@ -29,8 +33,36 @@ Route::middleware('auth')->group(function () {
         Route::get('{category:slug}', [CategoryController::class, 'category_detail'])->name('detail');  
     });  
 
-    Route::prefix('conditions')->name('conditions.')->group(function () {
+    Route::prefix('locations')->name('locations.')->group(function () {
+        Route::get('/', [LocationController::class, 'location_index'])->name('index');
+        Route::match(['get', 'post'], '/add', [LocationController::class, 'location_add'])->name('add');
+        Route::match(['get', 'post'], '{location:slug/edit', [LocationController::class, 'location_edit'])->name('edit');
+        Route::post('{location:slug}/delete', [LocationController::class, 'location_delete'])->name('delete');
+        Route::get('{location:slug}', [LocationController::class, 'location_detail'])->name('detail');
+    });
 
+    Route::prefix('conditions')->name('conditions.')->group(function () {
+        Route::get('/', [ConditionController::class, 'condition_index'])->name('index');
+        Route::match(['get', 'post'], '/add', [ConditionController::class, 'condition_add'])->name('add');
+        Route::match(['get', 'post'], '{condition:slug/edit', [ConditionController::class, 'condition_edit'])->name('edit');
+        Route::post('{condition:slug}/delete', [ConditionController::class, 'condition_delete'])->name('delete');
+        Route::get('{condition:slug}', [ConditionController::class, 'condition_detail'])->name('detail');
+    });
+
+    Route::prefix('items')->name('items.')->group(function () {
+        Route::get('/', [ItemController::class, 'item_index'])->name('index');
+        Route::match(['get', 'post'], '/add', [ItemController::class, 'item_add'])->name('add');
+        Route::match(['get', 'post'], '{item:slug/edit', [ItemController::class, 'item_edit'])->name('edit');
+        Route::post('{item:slug}/delete', [ItemController::class, 'item_delete'])->name('delete');
+        Route::get('{item:slug}', [ItemController::class, 'item_detail'])->name('detail');
+    });
+
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserController::class, 'user_index'])->name('index');
+        Route::match(['get', 'post'], '/add', [UserController::class, 'user_add'])->name('add');
+        Route::match(['get', 'post'], '{user:slug/edit', [UserController::class, 'user_edit'])->name('edit');
+        Route::post('{user:slug}/delete', [UserController::class, 'user_delete'])->name('delete');
+        Route::get('{user:slug}', [UserController::class, 'user_detail'])->name('detail');
     });
 
 

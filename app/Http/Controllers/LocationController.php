@@ -61,5 +61,34 @@ class LocationController extends Controller
         ]);
     }
 
-    public function 
+    public function location_edit(Request $request, Location $location)
+    {
+        if ($request->isMethod('post')) {
+            $validated = $request->validate([
+                'code' => ['required', 'string', 'max:50', 'unique:locations,code,' . $location->id],
+                'name' => ['required', 'string', 'max:100'],
+                'description' => ['nullable', 'string'],
+            ]);
+
+            $location->update($validated);
+
+            return redirect()->route('locations.index')->with('success', 'Lokasi berhasil diperbarui.');
+        }
+
+        return view('pages.locations.form', [
+            'title' => 'Edit Lokasi',
+            'location' => $location,
+        ]);
+    }
+
+    public function location_delete(Location $location)
+    {
+        if ($location->items()->exists()) {
+            return back()->with('error', 'Lokasi tidak dapat dihapus karena masih dipakai oleh data barang.');
+        }
+
+        $location->delete();
+
+        return redirect()->route('locations.index')->with('success', 'Lokasi berhasil dihapus.');
+    }
 }

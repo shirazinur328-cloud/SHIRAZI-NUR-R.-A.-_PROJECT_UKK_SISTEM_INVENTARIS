@@ -14,14 +14,14 @@ class Item extends Model
     protected $fillable = [
         'code',
         'slug',
-        'name',
+        'names',
         'category_id',
         'location_id',
         'condition_id',
         'stock',
-        'unit',
+        'units',
         'min_stock',
-        'description',
+        'descriptions',
     ];
 
     protected $casts = [
